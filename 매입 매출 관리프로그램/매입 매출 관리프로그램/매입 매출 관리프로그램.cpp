@@ -1,4 +1,4 @@
-// ¸ÅÀÔ ¸ÅÃâ °ü¸®ÇÁ·Î±×·¥.cpp : ÄÜ¼Ö ÀÀ¿ë ÇÁ·Î±×·¥¿¡ ´ëÇÑ ÁøÀÔÁ¡À» Á¤ÀÇÇÕ´Ï´Ù.
+// ë§¤ì… ë§¤ì¶œ ê´€ë¦¬í”„ë¡œê·¸ë¨.cpp : ì½˜ì†” ì‘ìš© í”„ë¡œê·¸ë¨ì— ëŒ€í•œ ì§„ì…ì ì„ ì •ì˜í•©ë‹ˆë‹¤.
 //
 
 #include "stdafx.h"
@@ -11,120 +11,109 @@ int money = 10000;
 int sellprice = 500;
 int restment_quantity = 0;
 
+typedef struct customer {
+	char name[20];
+	int age;
+	int birthday;
+	int phonenumber;
+	int bought;
+	int perchased;
+}cus;
+
+typedef struct factory {
+	char name[20];
+	int price;
+}fac;
+
+typedef struct bought {
+	char name[20];
+	int qty;
+}tra;
+
+
 int main()
 {
-	struct customer {
-		char name[20];
-		int age;
-		int birthday;
-		int phonenumber;
-		int bought;
-		int perchased;
-	}arr_c[10];
+	cus arr_c[10];
+	fac arr_f[3];
+	tra arr_t[3];
 
-	struct factory {
-		char name[20];
-		int price;
-	}arr_f[3];
+	int i_temp;
+	int a, i;
+	char c_temp[20];
+	char name[20];
+	int bought;
 
-	int temp;
-	printf("°ü¸®Ç×¸ñ ÀÔ·Â(°í°´°ü¸®:1,¸ÅÀÔÃ³°ü¸®:2,¸ÅÀÔ°ü¸®:3,Àç°í°ü¸®:4,¸ÅÃâ°ü¸®:5,¼öÀÍ°ü¸®:6)");
-	scanf_s("%d", &temp);
-	switch (temp) {
+	printf("ê´€ë¦¬í•­ëª© ì…ë ¥(ê³ ê°ê´€ë¦¬:1,ë§¤ì…ì²˜ê´€ë¦¬:2,ë§¤ì…ê´€ë¦¬:3,ì¬ê³ ê´€ë¦¬:4,ë§¤ì¶œê´€ë¦¬:5,ìˆ˜ìµê´€ë¦¬:6)");
+	scanf_s("%d", &i_temp);
+	switch (i_temp) {
 	case 1:
 		int a;
-		printf("°ü¸® Ç×¸ñ ÀÔ·Â(°í°´Á¤º¸ÀÔ·Â:1,°í°´Á¤º¸ Á¶È¸:2)");
+		printf("ê´€ë¦¬ í•­ëª© ì…ë ¥(ê³ ê°ì •ë³´ì…ë ¥:1,ê³ ê°ì •ë³´ ì¡°íšŒ:2)");
 		scanf_s("%d", &a);
 		switch (a) {
 		case 1:
-			int i;
-			customer *ptr_c;
-			ptr_c = new customer;
-			ptr_c = arr_c;
 			for (i = 0; i < 10; i++) {
-				printf("°í°´ÀÇ ÀÌ¸§,³ªÀÌ,»ıÀÏ,ÀüÈ­¹øÈ£,±¸ÀÔ¼ö,°áÁ¦°¡°İ ÀÔ·Â\n");
-				scanf_s("%s%d%d%d%d%d", ptr_c->name, ptr_c->age, ptr_c->birthday, ptr_c->phonenumber, ptr_c->bought, ptr_c->perchased);
-				ptr_c++;
+				printf("ê³ ê°ì˜ ì´ë¦„,ë‚˜ì´,ìƒì¼,ì „í™”ë²ˆí˜¸,êµ¬ì…ìˆ˜,ê²°ì œê°€ê²© ì…ë ¥\n");
+				scanf_s("%s %d %d %d %d %d", arr_c[i].name, &arr_c[i].age, &arr_c[i].birthday, &arr_c[i].phonenumber, &arr_c[i].bought, &arr_c[i].perchased);
 			}
-			delete ptr_c;
+			break;
 		case 2:
-			int i_4;
-			char temp[20];
-			ptr_c = arr_c;
-			printf("Á¶È¸ÇÏ·Á´Â °í°´ÀÌ¸§ ÀÔ·Â==>\n");
-			scanf_s("%s", &temp);
-			for (i_4 = 0; i_4 < 20; i_4++) {
-				if (strcmp(temp, ptr_c->name) == 0) {
-					printf("%s´ÔÀÇ ³ªÀÌ:%d\n",ptr_c->name,ptr_c->age);
-					printf("%s´ÔÀÇ »ıÀÏ:%d\n", ptr_c->name, ptr_c->birthday);
-					printf("%s´ÔÀÇ ÀüÈ­¹øÈ£:%d\n", ptr_c->name, ptr_c->phonenumber);
-					printf("%s´ÔÀÇ ±¸ÀÔ¼ö:%d\n", ptr_c->name, ptr_c->bought);
-					printf("%s´ÔÀÇ °áÁ¦°¡°İ:%d\n", ptr_c->name, ptr_c->perchased);
-					ptr_c++;
-				}
-				else {
-					ptr_c++;
+			printf("ì¡°íšŒí•˜ë ¤ëŠ” ê³ ê°ì´ë¦„ ì…ë ¥==>\n");
+			scanf_s("%s", &c_temp);
+
+			for (i = 0; i < 10; i++) {
+				if (strcmp(c_temp, arr_c[i].name) == 0) {
+					printf("%së‹˜ì˜ ë‚˜ì´:%d\n", arr_c[i].name, arr_c[i].age);
+					printf("%së‹˜ì˜ ìƒì¼:%d\n", arr_c[i].name, arr_c[i].birthday);
+					printf("%së‹˜ì˜ ì „í™”ë²ˆí˜¸:%d\n", arr_c[i].name, arr_c[i].phonenumber);
+					printf("%së‹˜ì˜ êµ¬ì…ìˆ˜:%d\n", arr_c[i].name, arr_c[i].bought);
+					printf("%së‹˜ì˜ ê²°ì œê°€ê²©:%d\n", arr_c[i].name, arr_c[i].perchased);
 				}
 			}
-			delete ptr_c;
-			
+			break;
 		}
-		
+		break;
+
 	case 2:
-		int i_2;
-		factory *ptr_f;
-		ptr_f = new factory;
-		ptr_f = arr_f;
-		for (i_2 = 0; i_2 < 3; i_2++) {
-			printf("¸ÅÀÔÃ³¸í°ú »óÇ° °³¼öº° °¡°İ ÀÔ·Â\n");
-			scanf_s("%s%d", ptr_f->name, ptr_f->price);
-			ptr_f++;
+		for (i = 0; i < 3; i++) {
+			printf("ë§¤ì…ì²˜ëª…ê³¼ ìƒí’ˆ ê°œìˆ˜ë³„ ê°€ê²© ì…ë ¥\n");
+			scanf_s("%s %d", arr_f[i].name, &arr_f[i].price);
 		}
-		delete ptr_f;
+		break;
+
 	case 3:
-		int i_3;
-		char name[20];
-		int bought;
-		ptr_f = arr_f;
-		printf("¸ÅÀÔÃ³¸í ¹× ±¸ÀÔ¼ö·® ÀÔ·Â\n");
-		scanf_s("%s%d", &name, &bought);
-		for (i_3 = 0; i_3 < 3; i_3++) {
-			if (strcmp(name, ptr_f->name)==0) {
-				money = money - ptr_f->price*bought;
+		printf("ë§¤ì…ì²˜ëª… ë° êµ¬ì…ìˆ˜ëŸ‰ ì…ë ¥\n");
+		scanf_s("%s %d", c_temp, &bought);
+
+		for (i = 0; i < 3; i++) {
+			if (strcmp(arr_f[i].name, c_temp) == 0) {
+				money = money - arr_f[i].price*bought;
 				restment_quantity = restment_quantity + bought;
-				ptr_f++;
-			}
-			else {
-				ptr_f++;
+				break;
 			}
 		}
-		delete ptr_f;
+		break;
+
 	case 4:
-		printf("ÇöÀç Àç°í:%d\n", restment_quantity);
+		printf("í˜„ì¬ ì¬ê³ :%d\n", restment_quantity);
+		break;
+
 	case 5:
-		int i_4;
-		char temp_n[20];
-		int bought_c;
-		customer *ptr_c;
-		ptr_c = new customer;
-		ptr_c = arr_c;
-		printf("±¸¸ÅÀÚ¸í ¹× ÆÇ¸Å¼ö·® ÀÔ·Â\n");
-		scanf_s("%s%d", &name, &bought_c);
-		for (i_4 = 0; i_4 < 20; i_4++) {
-			if (strcmp(name, ptr_c->name) == 0) {
-				money = money + ptr_c->bought*bought_c;
-				restment_quantity = restment_quantity - bought_c;
-				ptr_c++;
-			}
-			else {
-				ptr_c++;
+		printf("êµ¬ë§¤ìëª… ë° íŒë§¤ìˆ˜ëŸ‰ ì…ë ¥\n");
+		scanf_s("%s%d", &name, &bought);
+
+		for (i = 0; i < 20; i++) {
+			if (strcmp(name, arr_c[i].name) == 0) {
+				money = money + arr_c[i].bought*bought;
+				restment_quantity = restment_quantity - bought;
+				break;
 			}
 		}
-		delete ptr_c;
+		break;
+
 	case 6:
-		printf("ÇöÀç ÆÇ¸Å·®:%d\n",restment_quantity );
-		printf("ÇöÀçÀÜ°í:%d\n", money);
+		printf("í˜„ì¬ íŒë§¤ëŸ‰:%d\n", restment_quantity);
+		printf("í˜„ì¬ì”ê³ :%d\n", money);
+		break;
 	}
 }
-
-
